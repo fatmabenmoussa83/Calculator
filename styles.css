@@ -41,10 +41,12 @@ body {
     height: 80px;
   }
   .clear {
-    width:160px
+    width:160px;
+    background-color: rgb(67, 31, 31);
   }
   .zero {
     width: 160px;
+    background-color: rgb(20, 20, 41);
   }
   
   
