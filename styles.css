@@ -8,11 +8,22 @@ body {
   }
   
   .calculator {
-    max-width: 300px;
     padding: 20px;
     border: 1px solid #ccc;
     border-radius: 10px;
     background-color: rgb(49, 47, 47);
+  }
+  .container-input {
+    display: flex;
+    flex-direction: row;
+  }
+  .digits {
+    display: flex;
+    flex-direction: column;
+  }
+  .digits div {
+    display: flex;
+    flex-direction: row;
   }
   
   .display {
@@ -25,30 +36,15 @@ body {
     border-radius: 5px;
     margin-bottom: 10px;
   }
-  
-  .buttons {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    background-color: #4a27e6;
-
+  button {
+    width: 80px;
+    height: 80px;
+  }
+  .clear {
+    width:160px
+  }
+  .zero {
+    width: 160px;
   }
   
-  .button {
-    font-size: 18px;
-    padding: 10px ;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    color: #333;
-    width: calc(25% - 7.5px);
-    margin-bottom: 10px;
-    transition: background-color 0.2s ease;
-  }
   
-  .button:hover {
-    background-color: #ddd;
-  }
-.container{
-    display: flex;
-}  
