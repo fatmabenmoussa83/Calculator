@@ -42,11 +42,13 @@ body {
   }
   .clear {
     width:160px;
-    background-color: rgb(67, 31, 31);
+    background-color: rgb(132, 32, 32);
+    color: white;
   }
   .zero {
     width: 160px;
-    background-color: rgb(20, 20, 41);
+    background-color: rgb(41, 41, 121);
+    color: white;
   }
   
   
