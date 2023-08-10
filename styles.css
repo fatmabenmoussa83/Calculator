@@ -39,6 +39,7 @@ body {
   button {
     width: 80px;
     height: 80px;
+    font-size:24px;
   }
   .clear {
     width:160px;
