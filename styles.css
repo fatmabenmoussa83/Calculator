@@ -16,6 +16,7 @@ body {
   .container-input {
     display: flex;
     flex-direction: row;
+    
   }
   .digits {
     display: flex;
@@ -39,6 +40,7 @@ body {
   button {
     width: 80px;
     height: 80px;
+    border-radius: 8%;
   }
   .clear {
     width:160px
@@ -46,5 +48,15 @@ body {
   .zero {
     width: 160px;
   }
-  
-  
+  .orange{
+    background-color: orange;
+  }
+  .blue{
+    background-color: rgb(59, 181, 238);
+  }
+.container{
+  background-color: black;
+}
+.number{
+  background-color: rgba(50, 151, 146, 0.856);
+}
