@@ -40,13 +40,21 @@ body {
   button {
     width: 80px;
     height: 80px;
+<<<<<<< HEAD
     border-radius: 8%;
+=======
+    font-size:24px;
+>>>>>>> 1d23b4c079e72fac9ea9d83e0f222ce12b8a008c
   }
   .clear {
-    width:160px
+    width:160px;
+    background-color: rgb(132, 32, 32);
+    color: white;
   }
   .zero {
     width: 160px;
+    background-color: rgb(41, 41, 121);
+    color: white;
   }
   .orange{
     background-color: orange;
