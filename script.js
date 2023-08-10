@@ -46,6 +46,16 @@ backspaceBtn.addEventListener('click', () => {
 
 operatorBtns.forEach((btn) => {
   btn.addEventListener('click', () => {
+    if (currentInput === '') {
+      return;
+    }
+    if(checkOperator(currentInput[currentInput.length-1])) {
+      operator = btn.textContent;
+      currentInput = currentInput.slice(0, currentInput.length-1)
+      currentInput += operator;
+      updateDisplay();
+      return;
+    }
     if (firstNumber === '') {
       firstNumber = currentInput;
       operator = btn.textContent;
@@ -63,10 +73,16 @@ operatorBtns.forEach((btn) => {
 
 function getSecondNumber(str) {
   for(let i = 0; i < str.length; i++) {
-    if(str[i] === '+' || str[i] === '-' ||str[i] === '*' || str[i] === '/') {
+    if (checkOperator(str[i])) {
       return str.slice(i+1,str.length)
     }
   }
+}
+function checkOperator(str) {
+  if(str === '+' || str === '-' ||str === '*' || str === '/') {
+    return true;
+  }
+  return false;
 }
 
 equalsBtn.addEventListener('click', () => {
@@ -128,7 +144,7 @@ document.addEventListener('keydown', (event) => {
   const key = event.key;
   if (/\d/.test(key)) {
     document.getElementById(key).click();
-  } else if (event.key === '+' || event.key === '-' || event.key === '*' || eventkey === '/') {
+  } else if (checkOperator(key)) {
     const operatorMap = {
       '+': 'add',
       '-': 'subtract',
@@ -144,3 +160,4 @@ document.addEventListener('keydown', (event) => {
     backspaceBtn.click();
   }
 });
+77
