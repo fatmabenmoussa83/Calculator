@@ -49,19 +49,29 @@ operatorBtns.forEach((btn) => {
     if (firstNumber === '') {
       firstNumber = currentInput;
       operator = btn.textContent;
-      currentInput = '';
+      currentInput += operator;
+      updateDisplay();
     } else {
-      secondNumber = currentInput;
+      secondNumber = getSecondNumber(currentInput);
       operate();
       operator = btn.textContent;
-      currentInput = '';
+      currentInput += operator;
+      updateDisplay();
     }
   });
 });
 
+function getSecondNumber(str) {
+  for(let i = 0; i < str.length; i++) {
+    if(str[i] === '+' || str[i] === '-' ||str[i] === '*' || str[i] === '/') {
+      return str.slice(i+1,str.length)
+    }
+  }
+}
+
 equalsBtn.addEventListener('click', () => {
   if (firstNumber !== '' && operator !== '' && currentInput !== '') {
-    secondNumber = currentInput;
+    secondNumber = getSecondNumber(currentInput);
     operate();
   }
 });
@@ -118,7 +128,7 @@ document.addEventListener('keydown', (event) => {
   const key = event.key;
   if (/\d/.test(key)) {
     document.getElementById(key).click();
-  } else if (key === '+' || key === '-' || key === '*' || key === '/') {
+  } else if (event.key === '+' || event.key === '-' || event.key === '*' || eventkey === '/') {
     const operatorMap = {
       '+': 'add',
       '-': 'subtract',
