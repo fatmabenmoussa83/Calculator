@@ -15,12 +15,14 @@ function updateDisplay() {
   display.textContent = currentInput;
 }
 
-digitBtns.forEach((btn) => {
-  btn.addEventListener('click', () => {
-    if (currentInput.length < 10) {
-      currentInput += btn.textContent;
-      updateDisplay();
-    }
+digitBtns.forEach(button => {
+  button.addEventListener('click', () => {
+      if (currentInput === "0") {
+          currentInput = button.textContent;
+      } else {
+          currentInput += button.textContent;
+      }
+      display.textContent = currentInput;
   });
 });
 
@@ -32,16 +34,16 @@ decimalBtn.addEventListener('click', () => {
 });
 
 clearBtn.addEventListener('click', () => {
-  currentInput = '';
-  firstNumber = '';
-  operator = '';
-  secondNumber = '';
-  updateDisplay();
+  currentInput = "0";
+  display.textContent = currentInput;
 });
 
 backspaceBtn.addEventListener('click', () => {
   currentInput = currentInput.slice(0, -1);
-  updateDisplay();
+  if (currentInput === "") {
+      currentInput = "0";
+  }
+  display.textContent = currentInput;
 });
 
 operatorBtns.forEach((btn) => {
@@ -160,4 +162,3 @@ document.addEventListener('keydown', (event) => {
     backspaceBtn.click();
   }
 });
-77
