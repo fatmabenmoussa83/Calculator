@@ -21,13 +21,19 @@ digitBtns.forEach(button => {
           currentInput = button.textContent;
       } else {
           currentInput += button.textContent;
+          if(/[+|-|/|*]/.test(currentInput) && !checkOperator(currentInput[currentInput.length-1])) {
+            secondNumber = getSecondNumber(currentInput);
+          }
       }
-      display.textContent = currentInput;
+      updateDisplay();
   });
 });
 
 decimalBtn.addEventListener('click', () => {
   if (!currentInput.includes('.')) {
+    if(/\D/.test(currentInput[currentInput.length -1])) {
+      currentInput+= '0';
+    }
     currentInput += '.';
     updateDisplay();
   }
@@ -57,7 +63,8 @@ backspaceBtn.addEventListener('click', () => {
 operatorBtns.forEach((btn) => {
   btn.addEventListener('click', () => {
     if (currentInput === '') {
-      return;
+      currentInput = '0';
+      updateDisplay();
     }
     if(checkOperator(currentInput[currentInput.length-1])) {
       operator = btn.textContent;
@@ -96,8 +103,12 @@ function checkOperator(str) {
 }
 
 equalsBtn.addEventListener('click', () => {
+  secondNumber = getSecondNumber(currentInput);
+  if(secondNumber === '') {
+    display.textContent = "enter second operand";
+    return;
+  }
   if (firstNumber !== '' && operator !== '' && currentInput !== '') {
-    secondNumber = getSecondNumber(currentInput);
     operate();
   }
 });
@@ -115,14 +126,6 @@ function multiply(a, b) {
 }
 
 function divide(a, b) {
-  if (b === 0) {
-    display.textContent = "Error: Cannot divide by zero!";
-    currentInput = '';
-    firstNumber = '';
-    operator = '';
-    secondNumber = '';
-    return;
-  }
   return a / b;
 }
 
@@ -140,6 +143,13 @@ function operate() {
       currentInput = multiply(firstNumber, secondNumber).toString();
       break;
     case '/':
+      if(secondNumber === 0) {
+        display.textContent = "Genius so u can divide by 0 ;)";
+        currentInput = currentInput.slice(0, currentInput.length - 2);
+        secondNumber = '';
+        operator = '';
+        return;
+      }
       currentInput = divide(firstNumber, secondNumber).toString();
       break;
   }
