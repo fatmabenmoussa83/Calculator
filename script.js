@@ -183,15 +183,18 @@ document.addEventListener('keydown', (event) => {
 });
 
 function roundLongDecimals(str) {
-  let check = 0;
-  for(let i = str.length; i >= 0; i--) {
-    if(str[i] === '.') {
-      check = i;
+  if(str.includes('.')) {
+    let check = 0;
+    for(let i = str.length; i >= 0; i--) {
+      if(str[i] === '.') {
+        check = i;
+      }
+    }
+    if(str.length - check >= 10) {
+      str = parseFloat(str) * 10000000;
+      str = Math.round(str) / 10000000;
+      return str.toString();
     }
   }
-  if(str.length - check >= 10) {
-    str = parseFloat(str) * 10000000;
-    str = Math.round(str) / 10000000;
-    return str.toString();
-  }
+  return str;
 }
