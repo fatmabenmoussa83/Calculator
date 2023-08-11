@@ -35,15 +35,23 @@ decimalBtn.addEventListener('click', () => {
 
 clearBtn.addEventListener('click', () => {
   currentInput = "0";
-  display.textContent = currentInput;
+  firstNumber = '';
+  secondNumber = '';
+  operator = '';
+  updateDisplay();
 });
 
 backspaceBtn.addEventListener('click', () => {
   currentInput = currentInput.slice(0, -1);
+  if(secondNumber === '') {
+    operator = '';
+  } else if(secondNumber !== '') {
+    secondNumber = '';
+  }
   if (currentInput === "") {
       currentInput = "0";
   }
-  display.textContent = currentInput;
+  updateDisplay();
 });
 
 operatorBtns.forEach((btn) => {
