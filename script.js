@@ -20,6 +20,10 @@ digitBtns.forEach(button => {
       if (currentInput === "0") {
           currentInput = button.textContent;
       } else {
+          if(LimitNumberOfDigits(currentInput + button.textContent)) {
+            display.textContent = "can't enter more than 23 digits";
+            return;
+          }
           currentInput += button.textContent;
           if(/[+|-|/|*]/.test(currentInput) && !checkOperator(currentInput[currentInput.length-1])) {
             secondNumber = getSecondNumber(currentInput);
@@ -36,6 +40,10 @@ decimalBtn.addEventListener('click', () => {
     }
     currentInput += '.';
     updateDisplay();
+  }
+  if(LimitNumberOfDigits(currentInput + decimalBtn.textContent)) {
+    display.textContent = "can't enter more than 23 digits";
+    return;
   }
 });
 
@@ -73,6 +81,10 @@ operatorBtns.forEach((btn) => {
       updateDisplay();
       return;
     }
+    if(LimitNumberOfDigits(currentInput + btn.textContent)) {
+      display.textContent = "can't enter more than 23 digits";
+      return;
+    }
     if (firstNumber === '') {
       firstNumber = currentInput;
       operator = btn.textContent;
@@ -88,19 +100,7 @@ operatorBtns.forEach((btn) => {
   });
 });
 
-function getSecondNumber(str) {
-  for(let i = 0; i < str.length; i++) {
-    if (checkOperator(str[i])) {
-      return str.slice(i+1,str.length)
-    }
-  }
-}
-function checkOperator(str) {
-  if(str === '+' || str === '-' ||str === '*' || str === '/') {
-    return true;
-  }
-  return false;
-}
+
 
 equalsBtn.addEventListener('click', () => {
   secondNumber = getSecondNumber(currentInput);
@@ -182,6 +182,22 @@ document.addEventListener('keydown', (event) => {
   }
 });
 
+
+function getSecondNumber(str) {
+  for(let i = 0; i < str.length; i++) {
+    if (checkOperator(str[i])) {
+      return str.slice(i+1,str.length)
+    }
+  }
+}
+
+function checkOperator(str) {
+  if(str === '+' || str === '-' ||str === '*' || str === '/') {
+    return true;
+  }
+  return false;
+}
+
 function roundLongDecimals(str) {
   if(str.includes('.')) {
     let check = 0;
@@ -197,4 +213,11 @@ function roundLongDecimals(str) {
     }
   }
   return str;
+}
+
+function LimitNumberOfDigits(str) {
+  if(str.length >= 24) {
+    return true;
+  }
+  return false;
 }
