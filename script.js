@@ -19,14 +19,22 @@ digitBtns.forEach(button => {
   button.addEventListener('click', () => {
       if (currentInput === "0") {
           currentInput = button.textContent;
+          firstNumber = button.textContent;
       } else {
-          if(LimitNumberOfDigits(currentInput + button.textContent)) {
-            display.textContent = "can't enter more than 23 digits";
-            return;
-          }
-          currentInput += button.textContent;
-          if(/[+|-|/|*]/.test(currentInput) && !checkOperator(currentInput[currentInput.length-1])) {
+          if(/[+|/|*]|[-]/.test(currentInput)) {
+            if(LimitNumberOfDigits(getSecondNumber(currentInput + button.textContent))) {
+              display.textContent = "can't enter more than 11 digits";
+              return;
+            }
+            currentInput += button.textContent;
             secondNumber = getSecondNumber(currentInput);
+          } else {
+            if(LimitNumberOfDigits(firstNumber + button.textContent)) {
+              display.textContent = "can't enter more than 11 digits";
+              return;
+            }
+            currentInput += button.textContent;
+            firstNumber = currentInput;
           }
       }
       updateDisplay();
@@ -41,10 +49,6 @@ decimalBtn.addEventListener('click', () => {
     currentInput += '.';
     updateDisplay();
   }
-  if(LimitNumberOfDigits(currentInput + decimalBtn.textContent)) {
-    display.textContent = "can't enter more than 23 digits";
-    return;
-  }
 });
 
 clearBtn.addEventListener('click', () => {
@@ -58,9 +62,12 @@ clearBtn.addEventListener('click', () => {
 backspaceBtn.addEventListener('click', () => {
   currentInput = currentInput.slice(0, -1);
   if(secondNumber === '') {
+    if(operator === '') {
+      firstNumber = firstNumber.slice(0,-1);
+    }
     operator = '';
   } else if(secondNumber !== '') {
-    secondNumber = '';
+    secondNumber = secondNumber.slice(0,-1);
   }
   if (currentInput === "") {
       currentInput = "0";
@@ -72,7 +79,6 @@ operatorBtns.forEach((btn) => {
   btn.addEventListener('click', () => {
     if (currentInput === '') {
       currentInput = '0';
-      updateDisplay();
     }
     if(checkOperator(currentInput[currentInput.length-1])) {
       operator = btn.textContent;
@@ -80,27 +86,18 @@ operatorBtns.forEach((btn) => {
       currentInput += operator;
       updateDisplay();
       return;
-    }
-    if(LimitNumberOfDigits(currentInput + btn.textContent)) {
-      display.textContent = "can't enter more than 23 digits";
-      return;
-    }
-    if (firstNumber === '') {
-      firstNumber = currentInput;
-      operator = btn.textContent;
-      currentInput += operator;
-      updateDisplay();
     } else {
-      secondNumber = getSecondNumber(currentInput);
-      operate();
-      operator = btn.textContent;
-      currentInput += operator;
-      updateDisplay();
+      let temp = btn.textContent;
+      currentInput += temp;
+      if(secondNumber !== '') {
+        operate();
+        currentInput += temp;
+      }
+      operator = temp;
     }
+    updateDisplay();
   });
 });
-
-
 
 equalsBtn.addEventListener('click', () => {
   secondNumber = getSecondNumber(currentInput);
@@ -216,7 +213,7 @@ function roundLongDecimals(str) {
 }
 
 function LimitNumberOfDigits(str) {
-  if(str.length >= 24) {
+  if(str.length > 12) {
     return true;
   }
   return false;
