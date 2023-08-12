@@ -52,12 +52,20 @@ decimalBtn.addEventListener('click', () => {
   if (!currentInput[currentInput.length - 1].includes('.')) {
     if(/\D/.test(currentInput[currentInput.length -1])) {
       currentInput+= '0';
+      currentInput += '.';
+    } else {
+      if(checkOperator(currentInput)) {
+        if(!secondNumber.includes('.')) {
+          currentInput += '.';
+          secondNumber = getSecondNumber(currentInput);
+        }
+      } else {
+        if(!firstNumber.includes('.')) {
+          currentInput += '.';
+          firstNumber = currentInput;
+        }
+      }
     }
-    currentInput += '.';
-    if(checkOperator(currentInput)) {
-      secondNumber = getSecondNumber(currentInput);
-    }
-    firstNumber = currentInput;
     updateDisplay();
   }
 });
