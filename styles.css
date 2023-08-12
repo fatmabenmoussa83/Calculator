@@ -13,6 +13,9 @@ body {
     border-radius: 10px;
     background-color: rgb(49, 47, 47);
   }
+  #msg {
+    color: rgb(155, 147, 147);
+  }
   .container-input {
     display: flex;
     flex-direction: row;

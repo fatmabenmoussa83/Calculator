@@ -5,6 +5,7 @@ const operatorBtns = document.querySelectorAll('.operator');
 const digitBtns = document.querySelectorAll('.digit');
 const decimalBtn = document.getElementById('decimal');
 const equalsBtn = document.getElementById('equals');
+const msg = document.getElementById('msg');
 
 let currentInput = '';
 let firstNumber = '';
@@ -23,14 +24,20 @@ digitBtns.forEach(button => {
       } else {
           if(/[+|/|*]|[-]/.test(currentInput)) {
             if(LimitNumberOfDigits(getSecondNumber(currentInput + button.textContent))) {
-              display.textContent = "can't enter more than 11 digits";
+              msg.textContent = "can't enter more than 11 digits";
+              setTimeout(()=> {
+                msg.textContent = ""
+              },1000);
               return;
             }
             currentInput += button.textContent;
             secondNumber = getSecondNumber(currentInput);
           } else {
             if(LimitNumberOfDigits(firstNumber + button.textContent)) {
-              display.textContent = "can't enter more than 11 digits";
+              msg.textContent = "can't enter more than 11 digits";
+              setTimeout(()=> {
+                msg.textContent = ""
+              },1000);
               return;
             }
             currentInput += button.textContent;
