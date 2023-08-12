@@ -23,7 +23,7 @@ digitBtns.forEach(button => {
           firstNumber = button.textContent;
       } else {
           if(checkOperator(currentInput)) {
-            if(LimitNumberOfDigits(getSecondNumber(currentInput + button.textContent))) {
+            if(limitNumberOfDigits(getSecondNumber(currentInput + button.textContent))) {
               msg.textContent = "can't enter more than 11 digits";
               setTimeout(()=> {
                 msg.textContent = ""
@@ -33,7 +33,7 @@ digitBtns.forEach(button => {
             currentInput += button.textContent;
             secondNumber = getSecondNumber(currentInput);
           } else {
-            if(LimitNumberOfDigits(firstNumber + button.textContent)) {
+            if(limitNumberOfDigits(firstNumber + button.textContent)) {
               msg.textContent = "can't enter more than 11 digits";
               setTimeout(()=> {
                 msg.textContent = ""
@@ -231,7 +231,7 @@ function roundLongDecimals(str) {
   return str;
 }
 
-function LimitNumberOfDigits(str) {
+function limitNumberOfDigits(str) {
   if(str.length > 12) {
     return true;
   }
