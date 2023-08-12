@@ -22,7 +22,7 @@ digitBtns.forEach(button => {
           currentInput = button.textContent;
           firstNumber = button.textContent;
       } else {
-          if(/[+|/|*]|[-]/.test(currentInput)) {
+          if(checkOperator(currentInput)) {
             if(LimitNumberOfDigits(getSecondNumber(currentInput + button.textContent))) {
               msg.textContent = "can't enter more than 11 digits";
               setTimeout(()=> {
@@ -54,6 +54,9 @@ decimalBtn.addEventListener('click', () => {
       currentInput+= '0';
     }
     currentInput += '.';
+    if(checkOperator(currentInput)) {
+      secondNumber = getSecondNumber(currentInput);
+    }
     updateDisplay();
   }
 });
@@ -196,7 +199,7 @@ function getSecondNumber(str) {
 }
 
 function checkOperator(str) {
-  if(str === '+' || str === '-' ||str === '*' || str === '/') {
+  if(/[+|/|*]|[-]/.test(str)) {
     return true;
   }
   return false;
