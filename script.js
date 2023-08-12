@@ -49,7 +49,7 @@ digitBtns.forEach(button => {
 });
 
 decimalBtn.addEventListener('click', () => {
-  if (!currentInput.includes('.')) {
+  if (!currentInput[currentInput.length - 1].includes('.')) {
     if(/\D/.test(currentInput[currentInput.length -1])) {
       currentInput+= '0';
     }
@@ -57,6 +57,7 @@ decimalBtn.addEventListener('click', () => {
     if(checkOperator(currentInput)) {
       secondNumber = getSecondNumber(currentInput);
     }
+    firstNumber = currentInput;
     updateDisplay();
   }
 });
